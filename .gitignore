@@ -1,0 +1,4 @@
+
+# what files should we ignore (npm files result)
+node_modules
+dist
