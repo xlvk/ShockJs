@@ -1,0 +1,31 @@
+{
+    "name": "shock-js",
+    "version": "1.0.0",
+    "description": "A virtual DOM implementation for ShockJS (let's Shock the world with it!)",
+    "main": "src/index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "npm run build && node dist/index.js",
+        "test": "jest"
+    },
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "jsdom"
+    },
+    "author": "Sayed Hesham Husain, Fares Alashkar, Fatima Abbas Ali, Abdulrahman Khaled",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.25.2",
+        "@babel/preset-env": "^7.25.4",
+        "@babel/preset-typescript": "^7.24.7",
+        "@types/jest": "^29.5.13",
+        "@types/react": "^18.3.7",
+        "@types/react-dom": "^18.3.0",
+        "babel-jest": "^29.7.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "ts-jest": "^29.2.5",
+        "typescript": "^5.6.2"
+    },
+    "type": "module"
+}
