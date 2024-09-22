@@ -4,3 +4,6 @@ node_modules
 dist
 
 bundle.js
+diff.tsx
+patch.tsx
+patch.test.tsx
