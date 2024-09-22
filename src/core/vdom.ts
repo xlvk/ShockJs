@@ -4,7 +4,7 @@ const vApp = createElement('div', {
     attrs: {
         id: 'app'
     },
-    children: ['Hello world']
+    children: ['Hard coded VDOM']
 });
 
 export default vApp;
