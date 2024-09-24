@@ -6,7 +6,7 @@ class ShockEventManager {
     private eventTypes: string[];
     
     constructor() {
-        this.eventTypes =  ['click', 'scroll', 'keydown', 'keyup', 'mousemove', 'submit']; // TODO Add more event types as needed
+        this.eventTypes = Object.keys(window).filter(key => key.startsWith('on')).map(key => key.substring(2));
         this.initializeGlobalListeners(); // Automatically set up global listeners
     }
 
@@ -34,7 +34,7 @@ class ShockEventManager {
     public trigger(eventType: string, event: Event): void {
         if (!this.events[eventType]) return;
         const target = event.target as HTMLElement;
-        
+
         // Loop through all the events for the given eventType
         // and check if the selector matches the target
         this.events[eventType].forEach(({ selector, handler }) => {
