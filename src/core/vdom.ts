@@ -18,15 +18,29 @@ routes.push({
 const router = createRouter(routes);
 
 
-const vApp = createElement('button', {
-    attrs: { id: 'shockButton', class: 'shock-button' },
-    children: ['Click me for Shock!']
+// create a div and add 2 buttons
+const vApp = createElement('div', {
+    attrs: { id: 'app' },
+    children: [
+        createElement('button', {
+            attrs: { id: 'shockButton', class: 'shock-button' },
+            children: ['Click me for Shock!']
+        }),
+        createElement('button', {
+            attrs: { id: 'shockButton2', class: 'shock-button' },
+            children: ['Click me for Shock 2!']
+        })
+    ]
 });
 
 // Add shock listener to the button
-addShockListener('ShockHandler', (event) => {
+addShockListener('click', (event) => {
     console.log('Shock button clicked!', event);
-    // You can add more custom logic here
-});
+}, "#shockButton");
+
+addShockListener('click', (event) => {
+    console.log('Shock button 2 clicked!', event);
+}, "#shockButton2");
+
 
 export default vApp;
