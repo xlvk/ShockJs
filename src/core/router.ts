@@ -1,10 +1,11 @@
 import * as Handlebars from 'handlebars';
+import { ShockTarget, addShockListener, removeShockListener, dispatchShockEvent } from './event';
 
 // change this later
 // declare const ejs: any;
 
 /**
- * The `BaseComponent` represents a Base component from which all other components are registered
+ * The `ShockComponent` represents a Base component from which all other components are registered
  * Keep in mind it is NOT representative of an `HTMLElement` instance
  *
  * @property `data` - data to be rendered on the template
@@ -12,27 +13,27 @@ import * as Handlebars from 'handlebars';
  * @property `tsPath` - path to the associated ts controller
  * @property `children` - any child components of the same class
  */
-class BaseComponent {
+class ShockComponent {
     data = {};
-    children: BaseComponent[] = [];
+    children: ShockComponent[] = [];
     htmlPath = "";
     tsPath = "";
     name = "";
-    eventTarget: EventTarget;
+    shockTarget: typeof ShockTarget;
 
     constructor(
         name: string,
         htmlPath: string,
         tsPath: string,
         data?: {} | undefined,
-        children?: BaseComponent[] | undefined
+        children?: ShockComponent[] | undefined
     ) {
         this.data = data || {};
         this.children = children || [];
         this.htmlPath = htmlPath;
         this.tsPath = tsPath;
         this.name = name;
-        this.eventTarget = new EventTarget();
+        this.shockTarget = new ShockTarget();
     }
 
     async render() {
@@ -107,7 +108,7 @@ class BaseComponent {
      * Adds a child component to the current component
      * @param child - Child component to add
      */
-    addChild(child: BaseComponent) {
+    addChild(child: ShockComponent) {
         this.children.push(child);
     }
 
@@ -116,16 +117,16 @@ class BaseComponent {
      * @param type - Event type
      * @param listener - Event listener
      */
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject) {
-        this.eventTarget.addEventListener(type, listener);
+    addShockListener(type: string, listener: (event: MouseEvent) => void) {
+        addShockListener(type, listener);
     }
 
     /**
      * Dispatches an event from the component
      * @param event - Event to dispatch
      */
-    dispatchEvent(event: Event) {
-        this.eventTarget.dispatchEvent(event);
+    dispatchEvent(event: MouseEvent) {
+        dispatchShockEvent(event.type, event);
     }
 
     /**
@@ -133,16 +134,16 @@ class BaseComponent {
      * @param type - Event type
      * @param listener - Event listener
      */
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject) {
-        this.eventTarget.removeEventListener(type, listener);
+    removeEventListener(type: string, listener: (event: MouseEvent) => void) {
+        removeShockListener(type, listener);
     }
 }
 
-export { BaseComponent };
+export { ShockComponent };
 
 export interface Route {
   path: string;
-  component: BaseComponent;
+  component: ShockComponent;
 }
 
 /**
@@ -177,7 +178,7 @@ export class Router {
    *
    * @param component the component to be rendered
    */
-  renderComponent(component: BaseComponent) {
+  renderComponent(component: ShockComponent) {
     const appElement = document.getElementById("app");
     if (appElement) {
       appElement.innerHTML = "";
