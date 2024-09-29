@@ -9,7 +9,9 @@ const routes = [
     // { path: '/', component: new ShockComponent('HomeComponent', 'home.html', 'home.ts') },
     { path: '/', component: new ShockComponent('HomeComponent', 'index.html', 'home.ts') },
     { path: '/about', component: new ShockComponent('AboutComponent', 'index.html', 'about.ts') },
+    { path: '/todoList', component: new ShockComponent('ContactComponent', 'index.html', 'todo.ts') },
 ];
+
 routes.push({
     path: '/about',
     component: new ShockComponent('AboutDivComponent', 'aboutDiv.html', 'aboutDiv.ts')
@@ -68,11 +70,17 @@ let vApp = createElement('div', {
         createElement('h2', {
             attrs: { id: "we"},
             children: ["FUCK"]
-        }
-
-        )
+        }),
         // -------------------------------------------------------
-
+        // checkbox
+        createElement('input', {
+            attrs: { id: 'checkbox', type: 'checkbox' },
+            children: []
+        }),
+        createElement('label', {
+            attrs: { for: 'checkbox' },
+            children: ['Click me']
+        })
     ]
 });
 
@@ -80,6 +88,27 @@ if (route_path == '/about') {
     vApp = createElement('div', {
         attrs: { id: 'aboutDiv' },
         children: ['This is the about div']
+    });
+}
+
+// the vApp for the todo list
+if (route_path == '/todoList') {
+    vApp = createElement('div', {
+        // the items for the todo list
+        attrs: { id: 'todoList' },
+        children: [
+            createElement('input', {
+                attrs: { id: 'todoInput', type: 'text', placeholder: 'Enter todo here' }
+            }),
+            createElement('button', {
+                    attrs: { id: 'addButton', class: 'add-button' },
+                    children: ['Add']
+                }),
+            createElement('ul', {
+                attrs: { id: 'todoList' },
+                children: []
+            })
+        ]
     });
 }
 
@@ -117,6 +146,44 @@ addShockListener('click', (event) => {
         helloWorldElement.innerText = inputElement.value;
     }
 }, "#enterButton");
+
+// Add the CSS class dynamically
+const style = document.createElement('style');
+style.type = 'text/css';
+style.innerHTML = `
+    .checked {
+        background-color: lightgreen;
+    }
+`;
+document.getElementsByTagName('head')[0].appendChild(style);
+
+
+// Add listener to the checkbox to update its state and change its color
+let isChecked = false;
+addShockStateListener('click', (event) => {
+    const checkbox = document.getElementById('checkbox') as HTMLInputElement;
+    const label = document.querySelector('label[for="checkbox"]');
+    // console.log('Checkbox clicked!', isChecked);
+    checkbox.checked = !checkbox.checked;
+    isChecked = !isChecked;
+    console.log('Checkbox clicked after!', isChecked);
+    if (checkbox) {
+        if (checkbox.checked || isChecked) {
+            checkbox.classList.add('checked');
+        } else {
+            checkbox.classList.remove('checked');
+        }
+        console.log(`Checkbox is now ${isChecked ? 'checked' : 'unchecked'}`);
+    }
+    if (label) {
+        if (isChecked) {
+            label.classList.add('checked');
+        } else {
+            label.classList.remove('checked');
+        }
+    }
+    // console.log('Checkbox clicked!', checkbox.checked);
+}, "#checkbox");
 
 
 
