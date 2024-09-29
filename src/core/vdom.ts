@@ -39,9 +39,32 @@ const vApp = createElement('div', {
             children: ['Counter for Shock: 0']
         }),
         createElement('div', {
+            attrs: { id: 'counterDisplay' },
+            children: ['Counter for Shock: 0']
+        }),
+        createElement('div', {
             attrs: { id: 'counterDisplay2' },
             children: ['Counter for Shock 2: 0']
+        }),
+        // -------------------------------------------------------
+        // input testing
+        createElement('h1', {
+            attrs: { id: 'counterDisplay' },
+            children: ['INPUT TEST']
+        }),
+        createElement('input', {
+            attrs: { id: 'textInput', type: 'text', placeholder: 'Enter text here' }
+        }),
+        createElement('button', {
+            attrs: { id: 'enterButton', class: 'enter-button' },
+            children: ['Enter']
+        }),
+        createElement('div', {
+            attrs: { id: 'helloWorld' },
+            children: ['Hello World']
         })
+        // -------------------------------------------------------
+
     ]
 });
 
@@ -68,6 +91,18 @@ addShockStateListener('stateChange', (event) => {
     counter++;
     document.getElementById('counterDisplay2')!.innerText = `Counter for Shock 2: ${counter}`;
 }, "#shockButton2");
+
+
+// --------------------
+// Add listener to the enter button to change the text of the "Hello World" element
+addShockListener('click', (event) => {
+    const inputElement = document.getElementById('textInput') as HTMLInputElement;
+    const helloWorldElement = document.getElementById('helloWorld');
+    if (inputElement && helloWorldElement) {
+        helloWorldElement.innerText = inputElement.value;
+    }
+}, "#enterButton");
+
 
 
 export default vApp;
