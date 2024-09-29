@@ -159,30 +159,30 @@ document.getElementsByTagName('head')[0].appendChild(style);
 
 
 // Add listener to the checkbox to update its state and change its color
-let isChecked = false;
+// let isChecked = false;
 addShockStateListener('click', (event) => {
     const checkbox = document.getElementById('checkbox') as HTMLInputElement;
     const label = document.querySelector('label[for="checkbox"]');
-    // console.log('Checkbox clicked!', isChecked);
-    checkbox.checked = !checkbox.checked;
-    isChecked = !isChecked;
-    console.log('Checkbox clicked after!', isChecked);
+    console.log('Checkbox clicked!', checkbox.checked);
+    // checkbox.checked = !checkbox.checked;
+    // isChecked = !isChecked;
+    console.log('Checkbox clicked after!', checkbox.checked);
     if (checkbox) {
-        if (checkbox.checked || isChecked) {
+        if (checkbox.checked) {
             checkbox.classList.add('checked');
         } else {
             checkbox.classList.remove('checked');
         }
-        console.log(`Checkbox is now ${isChecked ? 'checked' : 'unchecked'}`);
+        console.log(`Checkbox is now ${checkbox.checked ? 'checked' : 'unchecked'}`);
     }
     if (label) {
-        if (isChecked) {
+        if (checkbox.checked) {
             label.classList.add('checked');
         } else {
             label.classList.remove('checked');
         }
     }
-    // console.log('Checkbox clicked!', checkbox.checked);
+    // // console.log('Checkbox clicked!', checkbox.checked);
 }, "#checkbox");
 
 
