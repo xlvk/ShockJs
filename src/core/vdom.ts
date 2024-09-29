@@ -7,8 +7,8 @@ import { ShockComponent } from './router';
 // Define your routes
 const routes = [
     // { path: '/', component: new ShockComponent('HomeComponent', 'home.html', 'home.ts') },
-    { path: '/', component: new ShockComponent('HomeComponent', 'home.html', 'home.ts') },
-    { path: '/about', component: new ShockComponent('AboutComponent', 'about.html', 'about.ts') },
+    { path: '/', component: new ShockComponent('HomeComponent', 'index.html', 'home.ts') },
+    { path: '/about', component: new ShockComponent('AboutComponent', 'index.html', 'about.ts') },
 ];
 routes.push({
     path: '/about',
@@ -23,7 +23,9 @@ const router = createRouter(routes);
 let counter = 0;
 
 // create a div and add 2 buttons
-const vApp = createElement('div', {
+const route_path = window.location.pathname;
+
+let vApp = createElement('div', {
     attrs: { id: 'app' },
     children: [
         createElement('button', {
@@ -62,11 +64,24 @@ const vApp = createElement('div', {
         createElement('div', {
             attrs: { id: 'helloWorld' },
             children: ['Hello World']
-        })
+        }),
+        createElement('h2', {
+            attrs: { id: "we"},
+            children: ["FUCK"]
+        }
+
+        )
         // -------------------------------------------------------
 
     ]
 });
+
+if (route_path == '/about') {
+    vApp = createElement('div', {
+        attrs: { id: 'aboutDiv' },
+        children: ['This is the about div']
+    });
+}
 
 // Add shock listener to the button
 addShockListener('click', (event) => {

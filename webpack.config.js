@@ -21,8 +21,14 @@ module.exports = {
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
   devServer: {
+    static: {
+      directory: path.join(__dirname, "public"), // Serve files from dist
+    },
+    compress: true,
+    port: 3000,
     open: true,
-    port: 3000
+    historyApiFallback: true, // Ensures that all routes serve index.html
+
   },
   mode: "development",
 };
