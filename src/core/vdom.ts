@@ -256,6 +256,24 @@ addShockListener('click', (event) => {
     }
 }, '.toggle-all');
 
+// listener for the edit input
+addShockListener('keypress', (event) => {
+    if ((event as KeyboardEvent).key === 'Enter') {
+        const input = event.target as HTMLInputElement;
+        const todoText = input.value.trim();
+        if (todoText) {
+            const li = input.closest('li');
+            if (li) {
+                const label = li.querySelector('label');
+                if (label) {
+                    label.textContent = todoText;
+                }
+                li.classList.remove('editing');
+            }
+        }
+    }
+}, '.edit');
+
 
 // toggleAll function
 function toggleAll() {
