@@ -3,6 +3,8 @@ import { addShockListener } from "./event";
 import { addShockStateListener, dispatchShockStateEvent } from "./state";
 import { createRouter } from './createRouter';
 import { ShockComponent } from './router';
+import  vtodoApp  from "./todo";
+
 
 // Define your routes
 const routes = [
@@ -68,7 +70,7 @@ let vApp = createElement('div', {
             children: ['Hello World']
         }),
         createElement('h2', {
-            attrs: { id: "we"},
+            attrs: { id: "we" },
             children: ["FUCK"]
         }),
         // -------------------------------------------------------
@@ -93,23 +95,7 @@ if (route_path == '/about') {
 
 // the vApp for the todo list
 if (route_path == '/todoList') {
-    vApp = createElement('div', {
-        // the items for the todo list
-        attrs: { id: 'todoList' },
-        children: [
-            createElement('input', {
-                attrs: { id: 'todoInput', type: 'text', placeholder: 'Enter todo here' }
-            }),
-            createElement('button', {
-                    attrs: { id: 'addButton', class: 'add-button' },
-                    children: ['Add']
-                }),
-            createElement('ul', {
-                attrs: { id: 'todoList' },
-                children: []
-            })
-        ]
-    });
+    vApp = vtodoApp
 }
 
 // Add shock listener to the button
@@ -154,6 +140,9 @@ style.innerHTML = `
     .checked {
         background-color: lightgreen;
     }
+    .completed {
+        background-color: lightgray;
+    }
 `;
 document.getElementsByTagName('head')[0].appendChild(style);
 
@@ -186,5 +175,223 @@ addShockStateListener('click', (event) => {
 }, "#checkbox");
 
 
+// Add event listeners for todo functionality
+addShockListener('keypress', (event) => {
+    if ((event as KeyboardEvent).key === 'Enter') {
+        const input = event.target as HTMLInputElement;
+        const todoText = input.value.trim();
+        if (todoText) {
+            addTodo(todoText);
+            input.value = '';
+            updateTodoCount();
+        }
+    }
+}, '#new-todo');
+
+addShockListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    console.log('Target:', target);
+    if (target.classList.contains('toggle')) {
+        console.log('Toggle clicked!');
+        const todoId = target.closest('li')!.id;
+        toggleTodoById(todoId);
+        updateTodoCount();
+    } else if (target.classList.contains('destroy')) {
+        console.log('Destroy clicked!');
+        removeTodo(target);
+        updateTodoCount();
+    }
+}, '.toggle');
+
+
+
+addShockListener('click', () => {
+    clearCompleted();
+    updateTodoCount();
+    console.log('Clear completed clicked!');
+}, '.clear-completed');
+
+
+// the destroy button
+addShockListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('destroy')) {
+        removeTodo(target);
+        updateTodoCount();
+    }
+}, '.destroy');
+
+addShockListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    console.log('Filter:', target);
+    if (target.tagName === 'A') {
+        filterTodos(target.getAttribute('href')!.slice(2));
+    }
+    // the currnt todos will be filtered
+    filterTodos();
+}, '.filters');
+
+// function to filter todos
+function filterTodos(filter = 'all') {
+    const todoItems = document.querySelectorAll('.todo-list li');
+    todoItems.forEach(item => {
+        const todo = item.querySelector('.todo-text') as HTMLElement;
+        const checkbox = item.querySelector('.toggle') as HTMLInputElement;
+        if (filter === 'active' && checkbox.checked) {
+            item.classList.add('hidden');
+        } else if (filter === 'completed' && !checkbox.checked) {
+            item.classList.add('hidden');
+        } else {
+            item.classList.remove('hidden');
+        }
+    });
+}
+
+// toggle all will make all todos checked or unchecked
+addShockListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('toggle-all')) {
+        toggleAll();
+        updateTodoCount();
+    }
+}, '.toggle-all');
+
+
+// toggleAll function
+function toggleAll() {
+    const todoItems = document.querySelectorAll('.todo-list li');
+    console.log('Toggle all clicked!');
+    const allChecked = Array.from(todoItems).every(item => (item.querySelector('.toggle') as HTMLInputElement)!.checked);
+    todoItems.forEach(item => {
+        const checkbox = item.querySelector('.toggle') as HTMLInputElement;
+        checkbox.checked = !allChecked;
+        // add the class completed to the todo item if the checkbox is checked
+        if (checkbox.checked) {
+            item.classList.add('completed');
+        } else {
+            item.classList.remove('completed');
+        }
+    });
+}
+
+let todoCounter = 0;
+
+// Helper functions for todo functionality
+function addTodo(text: string) {
+    const todoList = document.querySelector('.todo-list');
+    const todoId = `todo-${todoCounter++}`;
+    const li = createElement('li', {
+        attrs: { id: todoId },
+        children: [
+            createElement('div', {
+                attrs: { class: 'view' },
+                children: [
+                    createElement('input', { attrs: { class: 'toggle', type: 'checkbox' } }),
+                    createElement('label', { children: [text] }),
+                    createElement('button', { attrs: { class: 'destroy' }, children: ['X'] })
+                ]
+            }),
+            createElement('input', { attrs: { class: 'edit', value: text } })
+        ]
+    });
+    todoList!.appendChild(li);
+}
+
+// function toggleTodo(target: HTMLElement) {
+//     const li = target.closest('li');
+//     li!.classList.toggle('completed');
+//     // const checkbox = li!.querySelector('.toggle') as HTMLInputElement;
+//     // checkbox.checked = !checkbox.checked;
+// }
+
+function toggleTodoById(todoId: string) {
+    const todoItem = document.getElementById(todoId);
+    console.log('Toggle todo by id:', todoId);
+    if (todoItem) {
+        todoItem.classList.toggle('completed');
+        const checkbox = todoItem.querySelector('.toggle') as HTMLInputElement;
+        checkbox.checked = !checkbox.checked;
+        // add a tic mark to the checkbox
+    }
+}
+
+function removeTodo(target: HTMLElement) {
+    const li = target.closest('li');
+    li!.remove();
+}
+
+function clearCompleted() {
+    const completedTodos = document.querySelectorAll('.todo-list .completed');
+    completedTodos.forEach(todo => todo.remove());
+    updateTodoCount();
+}
+
+// function filterTodos(filter: string) {
+//     const todos = document.querySelectorAll('.todo-list li');
+//     todos.forEach(todo => {
+//         switch (filter) {
+//             case 'active':
+//                 (todo as HTMLElement).style.display = todo.classList.contains('completed') ? 'none' : '';
+//                 // add a tick mark to the checkbox
+//                 // const checkbox = todo.querySelector('.toggle') as HTMLInputElement;
+//                 break;
+//             case 'completed':
+//                 (todo as HTMLElement).style.display = todo.classList.contains('completed') ? '' : 'none';
+//                 // add a tick mark to the checkbox
+//                 // const checkbox = todo.querySelector('.toggle') as HTMLInputElement;
+//                 // checkbox.checked = true;
+                
+//                 break;
+//             default:
+//                 (todo as HTMLElement).style.display = '';
+//         }
+//     });
+//     updateFilterSelection(filter);
+// }
+
+// const style = document.createElement('style');
+// style.type = 'text/css';
+// style.innerHTML = `
+//     .completed {
+//         background-color: lightgray;
+//     }
+// `;
+// document.getElementsByTagName('head')[0].appendChild(style);
+
+// function filterTodos(filter: string) {
+//     const todos = document.querySelectorAll('.todo-list li');
+//     todos.forEach(todo => {
+//         const isCompleted = todo.classList.contains('completed');
+//         switch (filter) {
+//             case 'active':
+//                 (todo as HTMLElement).style.display = isCompleted ? 'none' : '';
+//                 break;
+//             case 'completed':
+//                 (todo as HTMLElement).style.display = isCompleted ? '' : 'none';
+//                 break;
+//             default:
+//                 (todo as HTMLElement).style.display = '';
+//         }
+//         // Toggle the completed class based on the completion status
+//         if (isCompleted) {
+//             todo.classList.add('completed');
+//         } else {
+//             todo.classList.remove('completed');
+//         }
+//     });
+// }
+
+function updateFilterSelection(filter: string) {
+    const filterLinks = document.querySelectorAll('.filters a');
+    filterLinks.forEach(link => {
+        link.classList.toggle('selected', link.getAttribute('href') === `#/${filter}`);
+    });
+}
+
+function updateTodoCount() {
+    const count = document.querySelectorAll('.todo-list li:not(.completed)').length;
+    const todoCount = document.querySelector('.todo-count');
+    todoCount!.textContent = `${count} item${count !== 1 ? 's' : ''} left`;
+}
 
 export default vApp;
