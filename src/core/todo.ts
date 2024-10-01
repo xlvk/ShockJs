@@ -40,13 +40,13 @@ let vtodoApp = createElement('div', {
                     attrs: { class: 'filters' },
                     children: [
                         createElement('li', {
-                            children: [createElement('a', { attrs: { href: '#/', class: 'selected' }, children: ['All'] })]
+                            children: [createElement('a', { attrs: { href: '#/', class: 'selected fil' }, children: ['All'] })]
                         }),
                         createElement('li', {
-                            children: [createElement('a', { attrs: { href: '#/active' }, children: ['Active'] })]
+                            children: [createElement('a', { attrs: { href: '#/active', class: 'fil' }, children: ['Active'] })]
                         }),
                         createElement('li', {
-                            children: [createElement('a', { attrs: { href: '#/completed' }, children: ['Completed'] })]
+                            children: [createElement('a', { attrs: { href: '#/completed', class: 'fil' }, children: ['Completed'] })]
                         })
                     ]
                 }),

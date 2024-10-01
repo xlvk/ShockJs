@@ -143,6 +143,9 @@ style.innerHTML = `
     .completed {
         background-color: lightgray;
     }
+    .hidden {
+        display: none;
+    }
 `;
 document.getElementsByTagName('head')[0].appendChild(style);
 
@@ -228,18 +231,23 @@ addShockListener('click', (event) => {
         filterTodos(target.getAttribute('href')!.slice(2));
     }
     // the currnt todos will be filtered
-    filterTodos();
-}, '.filters');
+    filterTodos(target.getAttribute('href')!.slice(2));
+    // console.log('Filter clicked!', target.getAttribute('href')!.slice(2));
+}, '.fil');
 
 // function to filter todos
-function filterTodos(filter = 'all') {
+function filterTodos(filter) {
+    // if (filter === '') {
+    //     filter = 'all';
+    //     document.querySelectorAll('.todo-list li').forEach(todo => todo.classList.remove('hidden'));
+    // }
     const todoItems = document.querySelectorAll('.todo-list li');
     todoItems.forEach(item => {
+        console.log('does it have the class completed?', item.classList.contains('completed'), item);
         const todo = item.querySelector('.todo-text') as HTMLElement;
-        const checkbox = item.querySelector('.toggle') as HTMLInputElement;
-        if (filter === 'active' && checkbox.checked) {
+        if (filter === 'active' && item.classList.contains('completed')) {
             item.classList.add('hidden');
-        } else if (filter === 'completed' && !checkbox.checked) {
+        } else if (filter === 'completed' && !item.classList.contains('completed')) {
             item.classList.add('hidden');
         } else {
             item.classList.remove('hidden');
