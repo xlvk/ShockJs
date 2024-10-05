@@ -336,8 +336,6 @@ function toggleTodoById(todoId: string) {
     if (todoItem) {
         todoItem.classList.toggle('completed');
         const checkbox = todoItem.querySelector('.toggle') as HTMLInputElement;
-        checkbox.checked = !checkbox.checked;
-        // add a tic mark to the checkbox
     }
 }
 

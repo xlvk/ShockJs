@@ -3,7 +3,7 @@ import { shockEventManager, ShockEventHandler } from './shockEventManager';
 // New shockListener using onClick
 export function shockListener(event: Event) {
     // Prevent default action
-    event.preventDefault();
+    // event.preventDefault();
 
     // Stop propagation
     event.stopPropagation();
