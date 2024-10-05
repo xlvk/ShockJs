@@ -156,6 +156,18 @@ export class Router {
   constructor(routes: Route[]) {
     this.routes = routes;
     this.handleRoute = this.handleRoute.bind(this);
+    window.addEventListener("popstate", this.handleRoute);
+    document.body.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement; // Type assertion
+      if (target.tagName === "A") {
+        event.preventDefault();
+        const href = (target as HTMLAnchorElement).getAttribute("href");
+        if (href) {
+          window.history.pushState(null, "", href);
+          this.handleRoute();
+        }
+      }
+    });
   }
 
   /**

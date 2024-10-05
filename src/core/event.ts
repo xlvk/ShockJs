@@ -31,3 +31,14 @@ export function ShockTarget() {
     // Add event listener
     addShockListener('click', shockListener);
 }
+
+
+// Extend the Document interface to include addShockListener
+declare global {
+    interface Document {
+        addShockListener(eventType: string, handler: ShockEventHandler, selector?: string | null): void;
+    }
+}
+
+// Implement the addShockListener method on the document
+document.addShockListener = addShockListener;
