@@ -287,10 +287,10 @@ addShockListener('keypress', (event) => {
 function toggleAll() {
     const todoItems = document.querySelectorAll('.todo-list li');
     console.log('Toggle all clicked!');
-    const allChecked = Array.from(todoItems).every(item => (item.querySelector('.toggle') as HTMLInputElement)!.checked);
+    const allChecked = (document.getElementById('toggle-all') as HTMLInputElement).checked;
     todoItems.forEach(item => {
         const checkbox = item.querySelector('.toggle') as HTMLInputElement;
-        checkbox.checked = !allChecked;
+        checkbox.checked = allChecked;
         // add the class completed to the todo item if the checkbox is checked
         if (checkbox.checked) {
             item.classList.add('completed');
@@ -335,7 +335,6 @@ function toggleTodoById(todoId: string) {
     console.log('Toggle todo by id:', todoId);
     if (todoItem) {
         todoItem.classList.toggle('completed');
-        const checkbox = todoItem.querySelector('.toggle') as HTMLInputElement;
     }
 }
 
