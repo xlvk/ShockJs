@@ -1,4 +1,4 @@
-const mount = ($target: HTMLElement, $node: Node) => {
+const mount = ($target: HTMLElement, $node: Element) => {
     $target.replaceWith($node);
     return $node;  
 }

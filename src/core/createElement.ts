@@ -1,4 +1,4 @@
-const createElement = (tagName: string, { attrs = {}, children = [] }: { attrs?: object, children?: Array<Node | string>} = {}) : Node => {
+const createElement = (tagName: string, { attrs = {}, children = [] }: { attrs?: object, children?: Array<Element | string>} = {}) : Element => {
     const element = document.createElement(tagName);
 
     for (const [key, value] of Object.entries(attrs)) {
