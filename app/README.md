@@ -1,1 +1,0 @@
-This directory should contain all your application code.
