@@ -30,5 +30,15 @@ module.exports = {
     historyApiFallback: true, // Ensures that all routes serve index.html
 
   },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  devtool: 'source-map',
   mode: "development",
 };
