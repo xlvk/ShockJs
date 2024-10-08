@@ -22,5 +22,18 @@ const createElement = (tagName: string, { attrs = {}, children = [] }: { attrs?:
     return element;
 };
 
+
+export function loadCSS(href: string) {
+    const linkElement = createElement('link', {
+        attrs: {
+            rel: 'stylesheet',
+            type: 'text/css',
+            href: href
+        }
+    });
+    document.head.appendChild(linkElement);
+}
+
+
 // Export createElement as the default export
 export default createElement;
