@@ -1,6 +1,6 @@
 import vTodo from './todo';
 import vHome from "./home";
-import createElement from "../src/core/createElement";
+import createElement, { loadCSS } from "../src/core/createElement";
 import VAppManager from "../src/core/vdom";
 import { createRouter } from '../src/core/createRouter';
 import { ShockComponent } from '../src/core/router';
@@ -36,6 +36,7 @@ if (route_path == '/') {
     vApp = vHome;
 } else if (route_path == '/todoList') {
     vApp = vTodo;
+    loadCSS('todo.css');
 } else {
     vAppManager.setVApp(
         createElement('div', {

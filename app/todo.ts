@@ -1,9 +1,6 @@
 import createElement from "../src/core/createElement";
-// import createElement from "./createElement";
 import { addShockListener } from "../src/core/event";
 import { addShockStateListener, dispatchShockStateEvent } from "../src/core/state";
-// import { createRouter } from '../src/core/createRouter';
-// import { ShockComponent } from '../src/core/router';
 
 let vtodoApp = createElement('div', {
     // the items for the todo list
@@ -180,6 +177,9 @@ function filterTodos(filter) {
             item.classList.remove('hidden');
         }
     });
+
+    // Update filter selection
+    updateFilterSelection(filter);
 }
 
 
@@ -244,13 +244,91 @@ function addTodo(text: string) {
                 children: [
                     createElement('input', { attrs: { class: 'toggle', type: 'checkbox' } }),
                     createElement('label', { children: [text] }),
-                    createElement('button', { attrs: { class: 'destroy' }, children: ['X'] })
+                    createElement('button', { attrs: { class: 'destroy' }, children: [''] })
                 ]
             }),
-            createElement('input', { attrs: { class: 'edit', value: text } })
+            createElement('input', {
+                attrs: { class: 'edit', value: text },
+                events: {
+                    keydown: (event: KeyboardEvent) => {
+                        if (event.key === 'Enter') {
+                            const input = event.target as HTMLInputElement;
+                            const li = input.closest('li');
+                            if (li) {
+                                li.classList.remove('editing');
+                                const label = li.querySelector('label');
+                                if (label) {
+                                    label.textContent = input.value;
+                                }
+                            }
+                        }
+                    },
+                    blur: (event: Event) => {
+                        const input = event.target as HTMLInputElement;
+                        const li = input.closest('li');
+                        if (li) {
+                            li.classList.remove('editing');
+                            const label = li.querySelector('label');
+                            if (label) {
+                                label.textContent = input.value;
+                            }
+                        }
+                    }
+                }
+            })
         ]
     });
     todoList!.appendChild(li);
+    enableEditingOnDblClick();
+    saveOrResetTodoTextOnBlur();
+}
+
+function enableEditingOnDblClick() {
+    const todoItems = document.querySelectorAll('.todo-list li');
+    todoItems.forEach(item => {
+        const label = item.querySelector('label');
+        if (label) {
+            label.addEventListener('dblclick', () => {
+                item.classList.add('editing');
+                const input = item.querySelector('.edit') as HTMLInputElement;
+                if (input) {
+                    input.focus();
+                }
+            });
+        }
+    });
+}
+
+function saveOrResetTodoTextOnBlur() {
+    const todoItems = document.querySelectorAll('.todo-list li');
+    todoItems.forEach(item => {
+        const input = item.querySelector('.edit') as HTMLInputElement;
+        let enterPressed = false;
+
+        if (input) {
+            input.addEventListener('keydown', (event: KeyboardEvent) => {
+                if (event.key === 'Enter') {
+                    enterPressed = true;
+                    item.classList.remove('editing');
+                    const label = item.querySelector('label');
+                    if (label) {
+                        label.textContent = input.value;
+                    }
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                if (!enterPressed) {
+                    item.classList.remove('editing');
+                    const label = item.querySelector('label');
+                    if (label) {
+                        label.textContent = input.defaultValue;
+                    }
+                }
+                enterPressed = false; // Reset the flag
+            });
+        }
+    });
 }
 
 function toggleTodoById(todoId: string) {
@@ -268,6 +346,7 @@ function removeTodo(target: HTMLElement) {
 
 function clearCompleted() {
     const completedTodos = document.querySelectorAll('.todo-list .completed');
+    console.log('Completed todos:', completedTodos); // Debug log
     completedTodos.forEach(todo => todo.remove());
     updateTodoCount();
 }

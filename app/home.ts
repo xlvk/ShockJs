@@ -1,9 +1,6 @@
 import createElement from "../src/core/createElement";
-// import createElement from "./createElement";
 import { addShockListener } from "../src/core/event";
 import { addShockStateListener, dispatchShockStateEvent } from "../src/core/state";
-// import { createRouter } from '../src/core/createRouter';
-// import { ShockComponent } from '../src/core/router';
 
 let vHome = createElement('div', {
     attrs: { id: 'app' },
