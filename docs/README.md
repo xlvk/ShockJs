@@ -33,14 +33,18 @@ import VAppManager from "../src/core/vdom";
 import createElement from "../src/core/createlement";
 
 // using Shock's element creator, mimicing the JSX way of things. 
-let homepage = createElement('div', {
+let vApp = createElement('div', {
                  attrs: { id: 'App' },
                 children: [
                     createElement('Hello World!'); // placing element inside children for nested elements
                 ]
             });
 
+// ...some code
+
 vAppManager.setVApp(homepage);
+
+export { vApp };
 ```
 
 2. Creating an event:
