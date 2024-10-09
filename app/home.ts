@@ -61,25 +61,6 @@ let vHome = createElement('div', {
                                     },
                                     children: [
                                         'Get Started',
-                                        createElement('svg', {
-                                            attrs: {
-                                                xmlns: 'http://www.w3.org/2000/svg',
-                                                width: '20',
-                                                height: '20',
-                                                viewBox: '0 0 24 24',
-                                                fill: 'none',
-                                                stroke: 'currentColor',
-                                                'stroke-width': '2',
-                                                'stroke-linecap': 'round',
-                                                'stroke-linejoin': 'round',
-                                                class: 'ml-2 w-5 h-5'
-                                            },
-                                            children: [
-                                                createElement('polyline', {
-                                                    attrs: { points: '9 18 15 12 9 6' }
-                                                })
-                                            ]
-                                        })
                                     ]
                                 }),
                                 createElement('button', {
@@ -89,28 +70,15 @@ let vHome = createElement('div', {
                                     },
                                     children: [
                                         'Learn More',
-                                        createElement('svg', {
-                                            attrs: {
-                                                xmlns: 'http://www.w3.org/2000/svg',
-                                                width: '20',
-                                                height: '20',
-                                                viewBox: '0 0 24 24',
-                                                fill: 'none',
-                                                stroke: 'currentColor',
-                                                'stroke-width': '2',
-                                                'stroke-linecap': 'round',
-                                                'stroke-linejoin': 'round',
-                                                class: 'ml-2 w-5 h-5'
-                                            },
-                                            children: [
-                                                createElement('polyline', {
-                                                    attrs: { points: '16 18 22 12 16 6' }
-                                                }),
-                                                createElement('polyline', {
-                                                    attrs: { points: '8 6 2 12 8 18' }
-                                                })
-                                            ]
-                                        })
+                                    ]
+                                }),
+                                createElement('button', {
+                                    attrs: {
+                                        class: 'px-6 py-3 bg-gray-200 text-gray-800 rounded-full font-semibold flex items-center justify-center',
+                                        id: 'todoList'
+                                    },
+                                    children: [
+                                        'Todo List MVC',
                                     ]
                                 })
                             ]
@@ -173,12 +141,17 @@ let vHome = createElement('div', {
 // Add event listeners if needed
 addShockListener('click', (event) => {
     console.log('Get Started button clicked!', event);
-    // Add your logic here
+    window.location.pathname = '/test';
 }, "#getStarted");
 
 addShockListener('click', (event) => {
     console.log('Learn More button clicked!', event);
-    // Add your logic here
+    window.location.href = 'https://github.com/xlvk/ShockJs';
 }, "#learnMore");
+
+addShockListener('click', (event) => {
+    console.log('todo button clicked!', event);
+    window.location.pathname = '/todoList';
+}, "#todoList");
 
 export default vHome;
