@@ -34,7 +34,7 @@ let vApp: Element;
 // the vApp for the todo list
 if (route_path == '/test') {
     vApp = vTest;
-    loadCSS('home.css');
+    loadCSS('test.css');
 } else if (route_path == '/todoList') {
     vApp = vTodo;
     loadCSS('todo.css');
