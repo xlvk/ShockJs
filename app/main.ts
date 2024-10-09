@@ -32,7 +32,10 @@ const router = createRouter(routes);
 let vApp: Element;
 
 // the vApp for the todo list
-if (route_path == '/test') {
+if (route_path == '/') {
+    // vApp = vHome;
+    loadCSS('home.css');
+} else if (route_path == '/test') {
     vApp = vTest;
     loadCSS('test.css');
 } else if (route_path == '/todoList') {

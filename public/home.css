@@ -1,0 +1,179 @@
+/* Add this to your existing CSS file or create a new one */
+
+/* Base styles */
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Utility classes */
+.min-h-screen {
+  min-height: 100vh;
+}
+.bg-gradient-to-br {
+  background: linear-gradient(to bottom right, #ebf4ff, #f3e8ff);
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.p-4 {
+  padding: 1rem;
+}
+.p-8 {
+  padding: 2rem;
+}
+.md\:p-8 {
+  padding: 2rem;
+}
+.md\:p-12 {
+  padding: 3rem;
+}
+.w-full {
+  width: 100%;
+}
+.max-w-4xl {
+  max-width: 56rem;
+}
+.bg-white {
+  background-color: white;
+}
+.rounded-2xl {
+  border-radius: 1rem;
+}
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-8 {
+  margin-bottom: 2rem;
+}
+.mb-12 {
+  margin-bottom: 3rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+}
+.md\:text-5xl {
+  font-size: 3rem;
+}
+.font-bold {
+  font-weight: 700;
+}
+.text-center {
+  text-align: center;
+}
+.text-gray-800 {
+  color: #1f2937;
+}
+.text-xl {
+  font-size: 1.25rem;
+}
+.text-gray-600 {
+  color: #4b5563;
+}
+.gap-4 {
+  gap: 1rem;
+}
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.bg-indigo-600 {
+  background-color: #4f46e5;
+}
+.text-white {
+  color: white;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.bg-gray-200 {
+  background-color: #e5e7eb;
+}
+.text-gray-800 {
+  color: #1f2937;
+}
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+.text-2xl {
+  font-size: 1.5rem;
+}
+.md\:text-3xl {
+  font-size: 1.875rem;
+}
+.text-lg {
+  font-size: 1.125rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+.text-indigo-600 {
+  color: #4f46e5;
+}
+
+/* Responsive classes */
+@media (min-width: 640px) {
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+}
+
+/* Additional styles */
+.w-16 {
+  width: 4rem;
+}
+.h-16 {
+  height: 4rem;
+}
+.w-5 {
+  width: 1.25rem;
+}
+.h-5 {
+  height: 1.25rem;
+}
+.ml-2 {
+  margin-left: 0.5rem;
+}
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+/* Button hover effects */
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  transition: all 0.2s;
+}
+
+/* SVG styles */
+svg {
+  display: inline-block;
+  vertical-align: middle;
+}
