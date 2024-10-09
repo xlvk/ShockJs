@@ -1,5 +1,5 @@
 import vTodo from './todo';
-import vHome from "./home";
+import vTest from "./test";
 import createElement, { loadCSS } from "../src/core/createElement";
 import VAppManager from "../src/core/vdom";
 import { createRouter } from '../src/core/createRouter';
@@ -13,7 +13,7 @@ const route_path = window.location.pathname;
 
 // Define your routes
 const routes = [
-    { path: '/', component: new ShockComponent('HomeComponent', 'index.html', 'home.ts') },
+    { path: '/test', component: new ShockComponent('TestComponent', 'index.html', 'test.ts') },
     { path: '/about', component: new ShockComponent('AboutComponent', 'index.html', 'about.ts') },
     { path: '/todoList', component: new ShockComponent('ContactComponent', 'index.html', 'todo.ts') },
 ];
@@ -32,8 +32,9 @@ const router = createRouter(routes);
 let vApp: Element;
 
 // the vApp for the todo list
-if (route_path == '/') {
-    vApp = vHome;
+if (route_path == '/test') {
+    vApp = vTest;
+    loadCSS('home.css');
 } else if (route_path == '/todoList') {
     vApp = vTodo;
     loadCSS('todo.css');
