@@ -42,10 +42,6 @@ let vTest = createElement('div', {
             attrs: { id: 'helloWorld' },
             children: ['Hello World']
         }),
-        createElement('h2', {
-            attrs: { id: "we" },
-            children: ["FUCK"]
-        }),
         // -------------------------------------------------------
         // checkbox
         createElement('input', {
