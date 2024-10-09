@@ -1,5 +1,6 @@
 import vTodo from './todo';
 import vTest from "./test";
+import vHome from './home';
 import createElement, { loadCSS } from "../src/core/createElement";
 import VAppManager from "../src/core/vdom";
 import { createRouter } from '../src/core/createRouter';
@@ -33,7 +34,7 @@ let vApp: Element;
 
 // the vApp for the todo list
 if (route_path == '/') {
-    // vApp = vHome;
+    vApp = vHome;
     loadCSS('home.css');
 } else if (route_path == '/test') {
     vApp = vTest;
