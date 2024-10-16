@@ -4,7 +4,7 @@ import { vApp } from "../../app/main";
 // singleton class to manage the vApp
 class VAppManager {
     private static instance: VAppManager;
-    private vApp: Element | null = null;
+    private vApp: HTMLElement | null = null;
 
     private constructor() {}
 
@@ -15,17 +15,17 @@ class VAppManager {
         return VAppManager.instance;
     }
 
-    public setVApp(newVApp: Element): void {
+    public setVApp(newVApp: HTMLElement): void {
         this.vApp = newVApp;
     }
 
-    public getVApp(): Element | null {
+    public getVApp(): HTMLElement | null {
         return this.vApp;
     }
 }
 
 // export the vApp to use it in other files
-let vAppElements: Element | undefined;
+let vAppElements: HTMLElement | undefined;
 
 // if the vApp is undefined, then create a div with 404 - Page Not Found
 const vAppManager = VAppManager.getInstance();

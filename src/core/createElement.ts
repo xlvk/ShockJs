@@ -1,4 +1,4 @@
-const createElement = (tagName: string, { attrs = {}, events = {}, children = [] }: { attrs?: Record<string, string>; events?: Record<string, (event: Event) => void>; children?: (string | Element)[] }): Element => {
+const createElement = (tagName: string, { attrs = {}, events = {}, children = [] }: { attrs?: Record<string, string>; events?: Record<string, (event: Event) => void>; children?: (string | HTMLElement)[] }): HTMLElement => {
     // Create a new HTML element of the specified tagName
     const element = document.createElement(tagName);
 
