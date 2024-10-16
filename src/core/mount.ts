@@ -1,5 +1,5 @@
 // The mount function is used to replace a target HTML element with a new node in the DOM
-const mount = ($target: HTMLElement, $node: Element) => {
+const mount = ($target: HTMLElement, $node: HTMLElement) => {
     // Replace the $target element with the $node element in the DOM
     $target.replaceWith($node);
     return $node;

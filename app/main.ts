@@ -30,7 +30,7 @@ const router = createRouter(routes);
 
 
 
-let vApp: Element;
+let vApp: HTMLElement;
 
 // the vApp for the todo list
 if (route_path == '/') {
@@ -55,7 +55,7 @@ if (route_path == '/') {
     });
 }
 
-export function getVApp(): Element {
+export function getVApp(): HTMLElement {
     return vApp;
 }
 
