@@ -18,7 +18,7 @@ class ShockEventManager {
     // Method to set up global event listeners for each event type
     initializeGlobalListeners() {
         this.eventTypes.forEach(eventType => {
-            document.documentElement['on' + eventType] = (event) => this.trigger(eventType, event);
+            (document.documentElement as any)['on' + eventType] = (event: Event) => this.trigger(eventType, event);
         });
     }
 

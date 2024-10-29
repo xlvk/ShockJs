@@ -1,6 +1,5 @@
 import createElement from "../src/core/createElement";
 import { addShockListener } from "../src/core/event";
-import { addShockStateListener, dispatchShockStateEvent } from "../src/core/state";
 
 let vHome = createElement('div', {
     attrs: {

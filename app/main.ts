@@ -26,11 +26,11 @@ routes.push({
 
 
 // Create the router
-const router = createRouter(routes);
+createRouter(routes);
 
 
 
-let vApp: Element;
+let vApp: HTMLElement;
 
 // the vApp for the todo list
 if (route_path == '/') {
