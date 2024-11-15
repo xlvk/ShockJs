@@ -26,7 +26,7 @@ routes.push({
 
 
 // Create the router
-const router = createRouter(routes);
+createRouter(routes);
 
 
 

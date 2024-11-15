@@ -1,6 +1,6 @@
 import createElement from "../src/core/createElement";
 import { addShockListener } from "../src/core/event";
-import { addShockStateListener, dispatchShockStateEvent } from "../src/core/state";
+import { addShockStateListener } from "../src/core/state";
 
 let vtodoApp = createElement('div', {
     // the items for the todo list
@@ -69,12 +69,12 @@ style.innerHTML = `
         display: none;
     }
 `;
-document.getElementsByTagName('head')[0].appendChild(style);
+document.getElementsByTagName('head')[0]?.appendChild(style);
 
 
 // Add listener to the checkbox to update its state and change its color
 // let isChecked = false;
-addShockStateListener('click', (event) => {
+addShockStateListener('click', () => {
     const checkbox = document.getElementById('checkbox') as HTMLInputElement;
     const label = document.querySelector('label[for="checkbox"]');
     console.log('Checkbox clicked!', checkbox.checked);
@@ -160,7 +160,7 @@ addShockListener('click', (event) => {
 }, '.fil');
 
 // function to filter todos
-function filterTodos(filter) {
+function filterTodos(filter: any) {
     // if (filter === '') {
     //     filter = 'all';
     //     document.querySelectorAll('.todo-list li').forEach(todo => todo.classList.remove('hidden'));
@@ -168,7 +168,6 @@ function filterTodos(filter) {
     const todoItems = document.querySelectorAll('.todo-list li');
     todoItems.forEach(item => {
         console.log('does it have the class completed?', item.classList.contains('completed'), item);
-        const todo = item.querySelector('.todo-text') as HTMLElement;
         if (filter === 'active' && item.classList.contains('completed')) {
             item.classList.add('hidden');
         } else if (filter === 'completed' && !item.classList.contains('completed')) {
@@ -250,9 +249,10 @@ function addTodo(text: string) {
             createElement('input', {
                 attrs: { class: 'edit', value: text },
                 events: {
-                    keydown: (event: KeyboardEvent) => {
-                        if (event.key === 'Enter') {
-                            const input = event.target as HTMLInputElement;
+                    keydown: (event: Event) => {
+                        const keyboardEvent = event as KeyboardEvent;
+                        if (keyboardEvent.key === 'Enter') {
+                            const input = keyboardEvent.target as HTMLInputElement;
                             const li = input.closest('li');
                             if (li) {
                                 li.classList.remove('editing');

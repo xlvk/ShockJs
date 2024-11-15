@@ -1,4 +1,5 @@
-const createElement = (tagName: string, { attrs = {}, events = {}, children = [] }: { attrs?: Record<string, string>; events?: Record<string, (event: Event) => void>; children?: (string | HTMLElement)[] }): HTMLElement => {
+const createElement = (tagName: string, { attrs = {}, children = [] }: { attrs?: Record<string, string>; events?: Record<string, (event: Event) => void>; children?: (string | HTMLElement)[] }): HTMLElement => {
+
     // Create a new HTML element of the specified tagName
     const element = document.createElement(tagName);
 
@@ -13,7 +14,7 @@ const createElement = (tagName: string, { attrs = {}, events = {}, children = []
         if (typeof child === 'string') {
             // If the child is a string, create a text node and append it
             element.appendChild(document.createTextNode(child));
-        } else {
+        } else if (child instanceof HTMLElement) {
             // If the child is an Element object, append it directly
             element.appendChild(child);
         }

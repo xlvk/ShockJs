@@ -33,7 +33,7 @@ class ShockComponent {
         this.htmlPath = htmlPath;
         this.tsPath = tsPath;
         this.name = name;
-        this.shockTarget = new ShockTarget();
+        this.shockTarget = new (ShockTarget as any)();
     }
 
     async render() {
@@ -118,7 +118,7 @@ class ShockComponent {
      * @param listener - Event listener
      */
     addShockListener(type: string, listener: (event: MouseEvent) => void) {
-        addShockListener(type, listener);
+        addShockListener(type, listener as EventListener);
     }
 
     /**
@@ -135,7 +135,7 @@ class ShockComponent {
      * @param listener - Event listener
      */
     removeEventListener(type: string, listener: (event: MouseEvent) => void) {
-        removeShockListener(type, listener);
+        removeShockListener(type, listener as EventListener);
     }
 }
 

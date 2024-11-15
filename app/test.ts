@@ -87,7 +87,7 @@ addShockStateListener('stateChange', (event) => {
 
 // --------------------
 // Add listener to the enter button to change the text of the "Hello World" element
-addShockListener('click', (event) => {
+addShockListener('click', () => {
     const inputElement = document.getElementById('textInput') as HTMLInputElement;
     const helloWorldElement = document.getElementById('helloWorld');
     if (inputElement && helloWorldElement) {
