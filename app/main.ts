@@ -55,7 +55,7 @@ if (route_path == '/') {
     });
 }
 
-export function getVApp(): Element {
+export function getVApp(): HTMLElement {
     return vApp;
 }
 
